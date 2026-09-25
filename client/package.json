@@ -1,0 +1,26 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "ts": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "mhz-helpers": "1.4.40",
+    "mhz-ui": "1.4.40",
+    "vue": "3.6.0-rc.8",
+    "vue-router": "5.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.2",
+    "@vitejs/plugin-vue": "6.0.9",
+    "sass-embedded": "1.105.0",
+    "typescript": "6.0.3",
+    "vite": "8.3.1",
+    "vue-tsc": "3.3.11"
+  }
+}
