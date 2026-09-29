@@ -20,7 +20,7 @@ import { RouterView } from "vue-router";
 import AppHeader from "./components/AppHeader.vue";
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .application {
   display: flex;
   flex-direction: column;

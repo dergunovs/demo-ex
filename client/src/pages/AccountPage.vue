@@ -118,7 +118,7 @@ function signOut(): void {
 onMounted(loadOrders);
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .page {
   display: flex;
   flex-direction: column;

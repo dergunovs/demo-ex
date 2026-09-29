@@ -76,7 +76,7 @@ function confirmStatus(): void {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .text {
   font-size: 12px;
   font-weight: 300;

@@ -81,7 +81,7 @@ function writeReview(): void {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .card {
   display: flex;
   flex-direction: column;

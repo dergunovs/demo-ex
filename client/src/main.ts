@@ -4,7 +4,7 @@ import App from "./App.vue";
 import { setupApi } from "./api";
 import { restoreUser } from "./auth";
 import router from "./router";
-import "./styles/main.scss";
+import "./styles/main.css";
 
 setupApi();
 

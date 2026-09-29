@@ -68,7 +68,7 @@ function signOut(): void {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .header {
   background-color: var(--color-white);
   border-bottom: 1px solid var(--color-gray-light);
@@ -142,7 +142,7 @@ function signOut(): void {
   color: var(--color-gray-dark);
 }
 
-@media (max-width: $mobile) {
+@media (max-width: 960px) {
   .burger {
     display: flex;
   }

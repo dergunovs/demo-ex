@@ -95,7 +95,7 @@ async function submitLogin(): Promise<void> {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .card {
   display: flex;
   flex-direction: column;

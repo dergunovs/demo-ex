@@ -63,7 +63,7 @@ onMounted(startAutoSlide);
 onUnmounted(stopAutoSlide);
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .slider {
   position: relative;
   overflow: hidden;

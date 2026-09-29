@@ -99,7 +99,7 @@ function openPrivateArea(): void {
 onMounted(loadTransports);
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .page {
   display: flex;
   flex-direction: column;

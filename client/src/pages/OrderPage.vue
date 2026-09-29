@@ -85,7 +85,7 @@ async function submitOrder(data: TOrderFormData): Promise<void> {
 onMounted(loadDictionaries);
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .page {
   display: flex;
   flex-wrap: wrap;

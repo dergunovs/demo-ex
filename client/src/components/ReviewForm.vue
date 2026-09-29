@@ -105,7 +105,7 @@ async function saveReview(): Promise<void> {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .rating {
   display: flex;
   gap: 4px;
