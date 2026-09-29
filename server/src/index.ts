@@ -19,7 +19,11 @@ const MONGO_URL = `mongodb://127.0.0.1:27017/${DATABASE}`;
 export function buildApp() {
   const app = Fastify();
 
-  app.register(cors, { origin: true });
+  app.register(cors, {
+    origin: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    credentials: true,
+  });
   app.register(jwt, { secret: SECRET });
   app.register(registerRoutes, { prefix: "/api" });
 

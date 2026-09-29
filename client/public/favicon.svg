@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Водить.РФ">
+  <rect width="64" height="64" rx="16" fill="#006cbb"/>
+  <path d="M12 40h40l-6 10H18z" fill="#fff"/>
+  <path d="M32 14v20h12z" fill="#9fd7ff"/>
+  <path d="M14 52h36v3H14z" fill="#9fd7ff"/>
+</svg>

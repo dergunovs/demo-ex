@@ -230,6 +230,7 @@ export async function registerRoutes(app: FastifyInstance): Promise<void> {
       paymentMethod: toPaymentMethodDTO(order.paymentMethod),
       startDate: order.startDate.toISOString(),
       status: order.status,
+      createdAt: order.createdAt.toISOString(),
     }));
 
     return reply.send({ data: attachReviews(data, reviews), total });

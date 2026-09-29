@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="Учебный центр Водить.РФ">
+  <defs>
+    <linearGradient id="sky4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#28a745"/>
+      <stop offset="100%" stop-color="#0056b3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#sky4)"/>
+  <circle cx="300" cy="150" r="82" fill="#ffffff" opacity="0.35"/>
+  <path d="M0 450q150 30 300 0t300 0 300 0 300 0v150H0z" fill="#ffffff" opacity="0.25"/>
+  <path d="M480 240h240v180H480z" fill="#ffffff" opacity="0.9"/>
+  <path d="M420 240l180-100 180 100z" fill="#ffffff" opacity="0.7"/>
+  <text x="600" y="120" font-family="Segoe UI, Arial, sans-serif" font-size="60" font-weight="700" fill="#ffffff" text-anchor="middle">Учебный центр Водить.РФ</text>
+  <text x="600" y="182" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#ffffff" text-anchor="middle">Лицензированные курсы и опытные наставники</text>
+</svg>
