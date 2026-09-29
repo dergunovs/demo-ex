@@ -5,7 +5,11 @@
 
       <UiFlex tag="form" column gap="16" @submit.prevent="submitLogin">
         <UiField label="Логин" :error="error('login')" isRequired>
-          <UiInput :model-value="formData.login" :is-disabled="isSending" @update:model-value="writeLogin" />
+          <UiInput
+            :model-value="formData.login"
+            :is-disabled="isSending"
+            @update:model-value="writeLogin"
+          />
         </UiField>
 
         <UiField label="Пароль" :error="error('password')" isRequired>
@@ -20,10 +24,12 @@
 
         <p v-if="notice" class="notice">{{ notice }}</p>
 
-        <UiButton type="submit" isLargeFont :isDisabled="isSending">Войти</UiButton>
+        <UiButton type="submit" :isDisabled="isSending">Войти</UiButton>
       </UiFlex>
 
-      <RouterLink :to="URLS.register">Еще не зарегистрированы? Регистрация</RouterLink>
+      <RouterLink :to="URLS.register"
+        >Еще не зарегистрированы? Регистрация</RouterLink
+      >
 
       <p class="hint">{{ ADMIN_HINT }}</p>
     </div>
@@ -37,11 +43,11 @@ import { RouterLink, useRoute, useRouter } from "vue-router";
 import { UiButton, UiField, UiFlex, UiInput, toast } from "mhz-ui";
 import { handleError, min, required, useValidate } from "mhz-helpers";
 
-import { loginCustomer } from "@/api";
-import { applyToken, currentUser } from "@/auth";
-import { ADMIN_HINT, PASSWORD_MIN, URLS } from "@/constants";
+import { loginCustomer } from "../api";
+import { applyToken, currentUser } from "../auth";
+import { ADMIN_HINT, PASSWORD_MIN, URLS } from "../constants";
 
-import type { TLoginData } from "@/types";
+import type { TLoginData } from "../types";
 
 const route = useRoute();
 const router = useRouter();
@@ -50,7 +56,9 @@ const formData = ref<TLoginData>({ login: "", password: "" });
 const isSending = shallowRef(false);
 const notice = shallowRef("");
 
-const redirect = computed(() => (typeof route.query.redirect === "string" ? route.query.redirect : ""));
+const redirect = computed(() =>
+  typeof route.query.redirect === "string" ? route.query.redirect : "",
+);
 
 const { error, isValid } = useValidate(
   formData,
@@ -83,7 +91,10 @@ async function submitLogin(): Promise<void> {
     currentUser.value = data.user;
     toast.success(`Здравствуйте, ${data.user.fullName}`);
 
-    await router.push(redirect.value || (data.user.role === "admin" ? URLS.admin : URLS.account));
+    await router.push(
+      redirect.value ||
+        (data.user.role === "admin" ? URLS.admin : URLS.account),
+    );
   } catch (requestError) {
     const message = handleError(requestError);
 

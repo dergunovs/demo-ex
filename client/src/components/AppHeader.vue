@@ -1,31 +1,65 @@
-<template>  <header class="header">
+<template>
+  <header class="header">
     <div class="container inner">
       <RouterLink :to="URLS.home" class="logo" @click="closeMenu">
         <span class="logoMark">ВРФ</span>
         <span>Водить.РФ</span>
       </RouterLink>
 
-      <button type="button" class="burger" :aria-expanded="isMenuOpen" aria-label="Открыть меню" @click="toggleMenu">
+      <button
+        type="button"
+        class="burger"
+        :aria-expanded="isMenuOpen"
+        aria-label="Открыть меню"
+        @click="toggleMenu"
+      >
         <span class="burgerLine" />
         <span class="burgerLine" />
         <span class="burgerLine" />
       </button>
 
-      <nav class="nav" :class="{navOpen: isMenuOpen}">
-        <RouterLink :to="URLS.home" class="link" :class="{linkActive: isLinkActive(route.path, URLS.home)}" @click="closeMenu"> Главная </RouterLink>
-        <RouterLink v-if="isAuth" :to="URLS.order" class="link" :class="{linkActive: isLinkActive(route.path, URLS.order)}" @click="closeMenu">
+      <nav class="nav" :class="{ navOpen: isMenuOpen }">
+        <RouterLink
+          :to="URLS.home"
+          class="link"
+          :class="{ linkActive: isLinkActive(route.path, URLS.home) }"
+          @click="closeMenu"
+        >
+          Главная
+        </RouterLink>
+        <RouterLink
+          v-if="isAuth"
+          :to="URLS.order"
+          class="link"
+          :class="{ linkActive: isLinkActive(route.path, URLS.order) }"
+          @click="closeMenu"
+        >
           Оформить заявку
         </RouterLink>
-        <RouterLink v-if="isAuth" :to="URLS.account" class="link" :class="{linkActive: isLinkActive(route.path, URLS.account)}" @click="closeMenu">
+        <RouterLink
+          v-if="isAuth"
+          :to="URLS.account"
+          class="link"
+          :class="{ linkActive: isLinkActive(route.path, URLS.account) }"
+          @click="closeMenu"
+        >
           Личный кабинет
         </RouterLink>
-        <RouterLink v-if="isAdmin" :to="URLS.admin" class="link" :class="{linkActive: isLinkActive(route.path, URLS.admin)}" @click="closeMenu">
+        <RouterLink
+          v-if="isAdmin"
+          :to="URLS.admin"
+          class="link"
+          :class="{ linkActive: isLinkActive(route.path, URLS.admin) }"
+          @click="closeMenu"
+        >
           Админ-панель
         </RouterLink>
 
         <span v-if="currentUser" class="user">{{ currentUser.fullName }}</span>
 
-        <UiButton v-if="isAuth" layout="secondary" isNarrow @click="signOut">Выйти</UiButton>
+        <UiButton v-if="isAuth" layout="secondary" isNarrow @click="signOut"
+          >Выйти</UiButton
+        >
         <UiButton v-else isNarrow @click="openLogin">Войти</UiButton>
       </nav>
     </div>
@@ -33,14 +67,14 @@
 </template>
 
 <script setup lang="ts">
-import {shallowRef} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import { shallowRef } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-import {UiButton, toast} from "mhz-ui";
-import {isLinkActive} from "mhz-helpers";
+import { UiButton, toast } from "mhz-ui";
+import { isLinkActive } from "mhz-helpers";
 
-import {currentUser, isAdmin, isAuth, logoutUser} from "@/auth";
-import {URLS} from "@/constants";
+import { currentUser, isAdmin, isAuth, logoutUser } from "../auth";
+import { URLS } from "../constants";
 
 const route = useRoute();
 const router = useRouter();
@@ -90,6 +124,7 @@ function signOut(): void {
   font-size: 20px;
   font-weight: 700;
   color: var(--color-primary-dark);
+  text-decoration: none;
 }
 
 .logoMark {

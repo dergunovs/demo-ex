@@ -1,7 +1,3 @@
 node_modules
 dist
 .env
-*.local
-.DS_Store
-.vite
-npm-debug.log*

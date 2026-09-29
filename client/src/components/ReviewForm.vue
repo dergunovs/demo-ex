@@ -1,6 +1,8 @@
 <template>
   <UiFlex tag="form" column gap="16" @submit.prevent="saveReview">
-    <p>Заявка {{ formatOrderNumber(order._id) }} · {{ order.transport.title }}</p>
+    <p>
+      Заявка {{ formatOrderNumber(order._id) }} · {{ order.transport.title }}
+    </p>
 
     <UiField label="Оценка" :error="error('rating')" isRequired>
       <div class="rating">
@@ -19,7 +21,11 @@
     </UiField>
 
     <UiField label="Текст отзыва" :error="error('text')" isRequired>
-      <UiTextarea :model-value="formData.text" :is-disabled="isSending" @update:model-value="writeText" />
+      <UiTextarea
+        :model-value="formData.text"
+        :is-disabled="isSending"
+        @update:model-value="writeText"
+      />
     </UiField>
 
     <UiButton type="submit" :isDisabled="isSending">Сохранить отзыв</UiButton>
@@ -32,11 +38,11 @@ import { ref, shallowRef } from "vue";
 import { UiButton, UiField, UiFlex, UiTextarea, toast } from "mhz-ui";
 import { handleError, min, required, useValidate } from "mhz-helpers";
 
-import { createReview } from "@/api";
-import { REVIEW_RATING_MAX, REVIEW_TEXT_MIN } from "@/constants";
-import { formatOrderNumber } from "@/format";
+import { createReview } from "../api";
+import { REVIEW_RATING_MAX, REVIEW_TEXT_MIN } from "../constants";
+import { formatOrderNumber } from "../format";
 
-import type { IOrder } from "@/types";
+import type { IOrder } from "../types";
 
 interface IProps {
   order: IOrder;

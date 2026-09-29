@@ -4,13 +4,18 @@
       <div class="hero">
         <h1>Курсы вождения речного транспорта</h1>
         <p class="lead">
-          Катера, круизные лайнеры и яхты: теория, практика на воде и подготовка к экзамену. Зарегистрируйтесь и подайте заявку на обучение онлайн.
+          Катера, круизные лайнеры и яхты: теория, практика на воде и подготовка
+          к экзамену. Зарегистрируйтесь и подайте заявку на обучение онлайн.
         </p>
 
         <UiFlex gap="12" wrap>
-          <UiButton v-if="!isAuth" isLargeFont @click="openRegister">Зарегистрироваться</UiButton>
-          <UiButton v-else isLargeFont @click="openOrder">Оформить заявку</UiButton>
-          <UiButton layout="secondary" isLargeFont @click="openPrivateArea">Личный кабинет</UiButton>
+          <UiButton v-if="!isAuth" @click="openRegister"
+            >Зарегистрироваться</UiButton
+          >
+          <UiButton v-else @click="openOrder">Оформить заявку</UiButton>
+          <UiButton layout="secondary" @click="openPrivateArea"
+            >Личный кабинет</UiButton
+          >
         </UiFlex>
       </div>
     </section>
@@ -23,14 +28,20 @@
       <h2>Виды транспорта</h2>
 
       <div class="cards">
-        <article v-for="transport in transports" :key="transport._id" class="card">
+        <article
+          v-for="transport in transports"
+          :key="transport._id"
+          class="card"
+        >
           <h3>{{ transport.title }}</h3>
           <p class="cardText">{{ transport.description }}</p>
           <p class="price">{{ formatPrice(transport.price) }}</p>
         </article>
       </div>
 
-      <p v-if="!transports.length" class="empty">Учебные программы загружаются.</p>
+      <p v-if="!transports.length" class="empty">
+        Учебные программы загружаются.
+      </p>
     </section>
 
     <section class="container">
@@ -47,19 +58,19 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
-import {useRouter} from "vue-router";
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
-import {UiButton, UiFlex, toast} from "mhz-ui";
-import {handleError} from "mhz-helpers";
+import { UiButton, UiFlex, toast } from "mhz-ui";
+import { handleError } from "mhz-helpers";
 
-import {fetchTransports} from "@/api";
-import {isAuth} from "@/auth";
-import BaseSlider from "@/components/BaseSlider.vue";
-import {SLIDES, URLS} from "@/constants";
-import {formatPrice} from "@/format";
+import { fetchTransports } from "../api";
+import { isAuth } from "../auth";
+import BaseSlider from "../components/BaseSlider.vue";
+import { SLIDES, URLS } from "../constants";
+import { formatPrice } from "../format";
 
-import type {ITransport} from "@/types";
+import type { ITransport } from "../types";
 
 interface IStep {
   title: string;
@@ -67,10 +78,22 @@ interface IStep {
 }
 
 const STEPS: IStep[] = [
-  {title: "1. Регистрация", text: "Создайте личный кабинет: логин, пароль и персональные данные."},
-  {title: "2. Заявка", text: "Выберите вид транспорта, дату старта занятий и способ оплаты."},
-  {title: "3. Согласование", text: "Администратор проверяет заявку и переводит её в статус «Идет обучение»."},
-  {title: "4. Обучение и отзыв", text: "После завершения курса оставьте отзыв в личном кабинете."},
+  {
+    title: "1. Регистрация",
+    text: "Создайте личный кабинет: логин, пароль и персональные данные.",
+  },
+  {
+    title: "2. Заявка",
+    text: "Выберите вид транспорта, дату старта занятий и способ оплаты.",
+  },
+  {
+    title: "3. Согласование",
+    text: "Администратор проверяет заявку и переводит её в статус «Идет обучение».",
+  },
+  {
+    title: "4. Обучение и отзыв",
+    text: "После завершения курса оставьте отзыв в личном кабинете.",
+  },
 ];
 
 const router = useRouter();

@@ -8,9 +8,13 @@
   >
     <template v-if="order">
       <h3>Изменение статуса</h3>
-      <p class="text">Заявка {{ formatOrderNumber(order._id) }} · {{ order.transport.title }}</p>
+      <p class="text">
+        Заявка {{ formatOrderNumber(order._id) }} · {{ order.transport.title }}
+      </p>
       <p class="text">Заявитель: {{ order.customer.fullName }}</p>
-      <p class="current">Текущий статус: {{ ORDER_STATUS_LABEL[order.status] }}</p>
+      <p class="current">
+        Текущий статус: {{ ORDER_STATUS_LABEL[order.status] }}
+      </p>
 
       <div class="options">
         <button
@@ -33,10 +37,10 @@ import { computed, shallowRef } from "vue";
 
 import { UiModal } from "mhz-ui";
 
-import { ORDER_STATUS_LABEL, ORDER_STATUS_TRANSITIONS } from "@/constants";
-import { formatOrderNumber } from "@/format";
+import { ORDER_STATUS_LABEL, ORDER_STATUS_TRANSITIONS } from "../constants";
+import { formatOrderNumber } from "../format";
 
-import type { IOrder, TOrderStatus } from "@/types";
+import type { IOrder, TOrderStatus } from "../types";
 
 interface IProps {
   modelValue: boolean;
@@ -57,7 +61,9 @@ const availableStatuses = computed<TOrderStatus[]>(() =>
   props.order ? ORDER_STATUS_TRANSITIONS[props.order.status] : [],
 );
 
-const chosenStatus = computed<TOrderStatus | undefined>(() => selectedStatus.value ?? availableStatuses.value[0]);
+const chosenStatus = computed<TOrderStatus | undefined>(
+  () => selectedStatus.value ?? availableStatuses.value[0],
+);
 
 function chooseStatus(status: TOrderStatus): void {
   selectedStatus.value = status;

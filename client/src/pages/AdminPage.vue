@@ -1,34 +1,65 @@
-<template>  <div class="page">
+<template>
+  <div class="page">
     <section class="container">
       <div class="head">
         <div>
           <h1>Панель администратора</h1>
-          <p class="subtitle">Все заявки портала: фильтры, сортировка, постраничная навигация и смена статуса.</p>
+          <p class="subtitle">
+            Все заявки портала: фильтры, сортировка, постраничная навигация и
+            смена статуса.
+          </p>
         </div>
 
-        <UiButton layout="secondary" isNarrow :isDisabled="isLoading" @click="loadOrders">Обновить</UiButton>
+        <UiButton
+          layout="secondary"
+          isNarrow
+          :isDisabled="isLoading"
+          @click="loadOrders"
+          >Обновить</UiButton
+        >
       </div>
 
       <div class="filters">
         <UiField label="Статус заявки">
-          <UiSelect :model-value="statusOption" :options="ORDER_STATUS_OPTIONS" isClearable @update:model-value="chooseStatus" />
+          <UiSelect
+            :model-value="statusOption"
+            :options="ORDER_STATUS_OPTIONS"
+            isClearable
+            @update:model-value="chooseStatus"
+          />
         </UiField>
 
         <UiField label="Вид транспорта">
-          <UiSelect :model-value="transportOption" :options="transportOptions" isClearable @update:model-value="chooseTransport" />
+          <UiSelect
+            :model-value="transportOption"
+            :options="transportOptions"
+            isClearable
+            @update:model-value="chooseTransport"
+          />
         </UiField>
 
         <UiField label="Сортировка">
-          <UiSelect :model-value="sortOption" :options="SORT_OPTIONS" @update:model-value="chooseSort" />
+          <UiSelect
+            :model-value="sortOption"
+            :options="SORT_OPTIONS"
+            @update:model-value="chooseSort"
+          />
         </UiField>
 
         <UiField label="Поиск заявителя">
-          <UiInput :model-value="searchDraft" :placeholder="SEARCH_HINT" @update:model-value="writeSearch" @keyup.enter="applyFilters" />
+          <UiInput
+            :model-value="searchDraft"
+            :placeholder="SEARCH_HINT"
+            @update:model-value="writeSearch"
+            @keyup.enter="applyFilters"
+          />
         </UiField>
 
         <div class="filterActions">
           <UiButton isNarrow @click="applyFilters">Найти</UiButton>
-          <UiButton isNarrow layout="secondary" @click="resetFilters">Сбросить</UiButton>
+          <UiButton isNarrow layout="secondary" @click="resetFilters"
+            >Сбросить</UiButton
+          >
 
           <UiButton isNarrow layout="secondary" @click="sortBy">
             {{ sortDir === "asc" ? "↑ По возрастанию" : "↓ По убыванию" }}
@@ -41,48 +72,94 @@
       <p class="summary">Найдено заявок: {{ total }}</p>
 
       <p v-if="isLoading" class="notice">Загружаем заявки…</p>
-      <p v-else-if="!orders.length" class="notice">По заданным условиям заявок нет.</p>
+      <p v-else-if="!orders.length" class="notice">
+        По заданным условиям заявок нет.
+      </p>
 
       <div class="list">
-        <OrderCard v-for="order in orders" :key="order._id" :order="order" isAdmin @change-status="openStatusModal" />
+        <OrderCard
+          v-for="order in orders"
+          :key="order._id"
+          :order="order"
+          isAdmin
+          @change-status="openStatusModal"
+        />
       </div>
 
-      <UiPagination v-if="total > PAGE_LIMIT" class="pagination" :page="page" :total="totalPages" @update="changePage" />
+      <UiPagination
+        v-if="total > PAGE_LIMIT"
+        class="pagination"
+        :page="page"
+        :total="totalPages"
+        @update="changePage"
+      />
     </section>
 
-    <StatusModal v-model="isShowStatusModal" :order="selectedOrder" @confirm="saveStatus" />
+    <StatusModal
+      v-model="isShowStatusModal"
+      :order="selectedOrder"
+      @confirm="saveStatus"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, ref, shallowRef} from "vue";
+import { computed, onMounted, ref, shallowRef } from "vue";
 
-import {UiButton, UiField, UiInput, UiPagination, UiSelect, toast} from "mhz-ui";
-import {handleError} from "mhz-helpers";
+import {
+  UiButton,
+  UiField,
+  UiInput,
+  UiPagination,
+  UiSelect,
+  toast,
+} from "mhz-ui";
+import { handleError } from "mhz-helpers";
 
-import {fetchOrders, fetchTransports, updateOrderStatus} from "@/api";
-import OrderCard from "@/components/OrderCard.vue";
-import StatusModal from "@/components/StatusModal.vue";
-import {ORDER_STATUS_OPTIONS, PAGE_LIMIT, SEARCH_HINT, SORT_OPTIONS} from "@/constants";
+import { fetchOrders, fetchTransports, updateOrderStatus } from "../api";
+import OrderCard from "../components/OrderCard.vue";
+import StatusModal from "../components/StatusModal.vue";
+import {
+  ORDER_STATUS_OPTIONS,
+  PAGE_LIMIT,
+  SEARCH_HINT,
+  SORT_OPTIONS,
+} from "../constants";
 
-import type {IOrder, IOrdersFilter, ISelectOption, TDirection, TOrderStatus} from "@/types";
+import type {
+  IOrder,
+  IOrdersFilter,
+  ISelectOption,
+  TDirection,
+  TOrderStatus,
+} from "../types";
 
 const orders = ref<IOrder[]>([]);
 const transportOptions = ref<ISelectOption[]>([]);
 const total = ref(0);
 const page = shallowRef(1);
 const isLoading = shallowRef(false);
-const filter = ref<IOrdersFilter>({status: "", transport: "", search: ""});
+const filter = ref<IOrdersFilter>({ status: "", transport: "", search: "" });
 const searchDraft = shallowRef("");
 const sortField = shallowRef("createdAt");
 const sortDir = shallowRef<TDirection>("desc");
 const selectedOrder = shallowRef<IOrder | null>(null);
 const isShowStatusModal = shallowRef(false);
 
-const totalPages = computed(() => Math.max(1, Math.ceil(total.value / PAGE_LIMIT)));
-const statusOption = computed(() => ORDER_STATUS_OPTIONS.find((option) => option._id === filter.value.status));
-const transportOption = computed(() => transportOptions.value.find((option) => option._id === filter.value.transport));
-const sortOption = computed(() => SORT_OPTIONS.find((option) => option._id === sortField.value));
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(total.value / PAGE_LIMIT)),
+);
+const statusOption = computed(() =>
+  ORDER_STATUS_OPTIONS.find((option) => option._id === filter.value.status),
+);
+const transportOption = computed(() =>
+  transportOptions.value.find(
+    (option) => option._id === filter.value.transport,
+  ),
+);
+const sortOption = computed(() =>
+  SORT_OPTIONS.find((option) => option._id === sortField.value),
+);
 
 function getOptionId(value?: string | number | ISelectOption): string {
   return typeof value === "object" && value?._id ? value._id : "";
@@ -92,7 +169,7 @@ async function loadOrders(): Promise<void> {
   isLoading.value = true;
 
   try {
-    const {data} = await fetchOrders({
+    const { data } = await fetchOrders({
       page: page.value,
       limit: PAGE_LIMIT,
       sort: sortField.value,
@@ -113,10 +190,12 @@ async function loadOrders(): Promise<void> {
 
 async function loadTransports(): Promise<void> {
   try {
-    transportOptions.value = (await fetchTransports()).data.map((transport) => ({
-      _id: transport._id,
-      title: transport.title,
-    }));
+    transportOptions.value = (await fetchTransports()).data.map(
+      (transport) => ({
+        _id: transport._id,
+        title: transport.title,
+      }),
+    );
   } catch (requestError) {
     toast.error(handleError(requestError));
   }
@@ -129,7 +208,7 @@ function applyFilters(): void {
 }
 
 function resetFilters(): void {
-  filter.value = {status: "", transport: "", search: ""};
+  filter.value = { status: "", transport: "", search: "" };
   searchDraft.value = "";
   page.value = 1;
   void loadOrders();
@@ -173,7 +252,7 @@ async function saveStatus(status: TOrderStatus): Promise<void> {
   if (!selectedOrder.value) return;
 
   try {
-    const {data} = await updateOrderStatus(selectedOrder.value._id, status);
+    const { data } = await updateOrderStatus(selectedOrder.value._id, status);
 
     toast.success(data.message);
     selectedOrder.value = null;

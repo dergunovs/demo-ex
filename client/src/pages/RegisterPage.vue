@@ -64,7 +64,9 @@
 
         <p v-if="notice" class="notice">{{ notice }}</p>
 
-        <UiButton type="submit" isLargeFont :isDisabled="isSending">Зарегистрироваться</UiButton>
+        <UiButton type="submit" :isDisabled="isSending"
+          >Зарегистрироваться</UiButton
+        >
       </UiFlex>
 
       <RouterLink :to="URLS.login">Уже зарегистрированы? Вход</RouterLink>
@@ -77,9 +79,16 @@ import { ref, shallowRef } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 
 import { UiButton, UiField, UiFlex, UiInput, toast } from "mhz-ui";
-import { email, handleError, letters, min, required, useValidate } from "mhz-helpers";
+import {
+  email,
+  handleError,
+  letters,
+  min,
+  required,
+  useValidate,
+} from "mhz-helpers";
 
-import { registerCustomer } from "@/api";
+import { registerCustomer } from "../api";
 import {
   DATE_LENGTH,
   DATE_PATTERN,
@@ -90,10 +99,10 @@ import {
   PHONE_PATTERN,
   PHONE_PLACEHOLDER,
   URLS,
-} from "@/constants";
-import { formatDateInput } from "@/format";
+} from "../constants";
+import { formatDateInput } from "../format";
 
-import type { TRegisterData } from "@/types";
+import type { TRegisterData } from "../types";
 
 const router = useRouter();
 
@@ -115,8 +124,17 @@ const { error, isValid } = useValidate(
     login: [required("ru"), { pattern: LOGIN_PATTERN, message: LOGIN_HINT }],
     password: [required("ru"), min(PASSWORD_MIN, "ru")],
     fullName: [required("ru"), letters("ru")],
-    birthDate: [required("ru"), { pattern: DATE_PATTERN, message: "Дата в формате ДД.ММ.ГГГГ" }],
-    phone: [required("ru"), { pattern: PHONE_PATTERN, message: "Телефон в формате +7 (900) 000-00-00" }],
+    birthDate: [
+      required("ru"),
+      { pattern: DATE_PATTERN, message: "Дата в формате ДД.ММ.ГГГГ" },
+    ],
+    phone: [
+      required("ru"),
+      {
+        pattern: PHONE_PATTERN,
+        message: "Телефон в формате +7 (900) 000-00-00",
+      },
+    ],
     email: [required("ru"), email("ru")],
   },
   "ru",

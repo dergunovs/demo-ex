@@ -8,9 +8,15 @@
         </div>
 
         <UiFlex gap="12" wrap>
-          <UiButton v-if="!isAdmin" isNarrow @click="openOrderPage">Новая заявка</UiButton>
-          <UiButton v-else isNarrow @click="openAdminPage">Админ-панель</UiButton>
-          <UiButton layout="secondary" isNarrow @click="signOut">Выйти</UiButton>
+          <UiButton v-if="!isAdmin" isNarrow @click="openOrderPage"
+            >Новая заявка</UiButton
+          >
+          <UiButton v-else isNarrow @click="openAdminPage"
+            >Админ-панель</UiButton
+          >
+          <UiButton layout="secondary" isNarrow @click="signOut"
+            >Выйти</UiButton
+          >
         </UiFlex>
       </div>
 
@@ -38,17 +44,28 @@
       <h2>История заявок</h2>
 
       <div class="list">
-        <OrderCard v-for="order in orders" :key="order._id" :order="order" @write-review="openReviewModal" />
+        <OrderCard
+          v-for="order in orders"
+          :key="order._id"
+          :order="order"
+          @write-review="openReviewModal"
+        />
       </div>
 
       <p v-if="isLoaded && !orders.length" class="empty">
         Заявок пока нет.
-        <RouterLink :to="URLS.order" class="link">Оформить первую заявку</RouterLink>
+        <RouterLink :to="URLS.order" class="link"
+          >Оформить первую заявку</RouterLink
+        >
       </p>
     </section>
 
     <UiModal v-model="isShowReviewModal" width="440">
-      <ReviewForm v-if="selectedOrder" :order="selectedOrder" @saved="closeReviewModal" />
+      <ReviewForm
+        v-if="selectedOrder"
+        :order="selectedOrder"
+        @saved="closeReviewModal"
+      />
     </UiModal>
   </div>
 </template>
@@ -60,14 +77,14 @@ import { RouterLink, useRouter } from "vue-router";
 import { UiButton, UiFlex, UiModal, toast } from "mhz-ui";
 import { handleError } from "mhz-helpers";
 
-import { fetchOrders } from "@/api";
-import { currentUser, isAdmin, logoutUser } from "@/auth";
-import BaseSlider from "@/components/BaseSlider.vue";
-import OrderCard from "@/components/OrderCard.vue";
-import ReviewForm from "@/components/ReviewForm.vue";
-import { ACCOUNT_ORDERS_LIMIT, SLIDES, URLS } from "@/constants";
+import { fetchOrders } from "../api";
+import { currentUser, isAdmin, logoutUser } from "../auth";
+import BaseSlider from "../components/BaseSlider.vue";
+import OrderCard from "../components/OrderCard.vue";
+import ReviewForm from "../components/ReviewForm.vue";
+import { ACCOUNT_ORDERS_LIMIT, SLIDES, URLS } from "../constants";
 
-import type { IOrder } from "@/types";
+import type { IOrder } from "../types";
 
 const router = useRouter();
 
@@ -80,7 +97,11 @@ const roleLabel = computed(() => (isAdmin.value ? "Администратор" :
 
 async function loadOrders(): Promise<void> {
   try {
-    const { data } = await fetchOrders({ limit: ACCOUNT_ORDERS_LIMIT, sort: "createdAt", dir: "desc" });
+    const { data } = await fetchOrders({
+      limit: ACCOUNT_ORDERS_LIMIT,
+      sort: "createdAt",
+      dir: "desc",
+    });
 
     orders.value = data.data;
   } catch (requestError) {

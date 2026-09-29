@@ -4,8 +4,9 @@
       <section class="card">
         <h1>Оформление заявки</h1>
         <p class="lead">
-          Выберите вид транспорта, укажите дату старта занятий в формате ДД.ММ.ГГГГ и способ оплаты.
-          Заявка получит статус «Новая» и будет отправлена администратору на согласование.
+          Выберите вид транспорта, укажите дату старта занятий в формате
+          ДД.ММ.ГГГГ и способ оплаты. Заявка получит статус «Новая» и будет
+          отправлена администратору на согласование.
         </p>
 
         <OrderForm
@@ -19,13 +20,19 @@
       <aside class="info">
         <h2>Программы обучения</h2>
 
-        <div v-for="transport in transports" :key="transport._id" class="infoItem">
+        <div
+          v-for="transport in transports"
+          :key="transport._id"
+          class="infoItem"
+        >
           <p class="infoTitle">{{ transport.title }}</p>
           <p class="infoPrice">{{ formatPrice(transport.price) }}</p>
           <p class="infoText">{{ transport.description }}</p>
         </div>
 
-        <p v-if="!transports.length" class="infoText">Данные о программах загружаются.</p>
+        <p v-if="!transports.length" class="infoText">
+          Данные о программах загружаются.
+        </p>
       </aside>
     </div>
   </div>
@@ -38,12 +45,12 @@ import { useRouter } from "vue-router";
 import { toast } from "mhz-ui";
 import { handleError } from "mhz-helpers";
 
-import { createOrder, fetchPaymentMethods, fetchTransports } from "@/api";
-import OrderForm from "@/components/OrderForm.vue";
-import { URLS } from "@/constants";
-import { formatPrice } from "@/format";
+import { createOrder, fetchPaymentMethods, fetchTransports } from "../api";
+import OrderForm from "../components/OrderForm.vue";
+import { URLS } from "../constants";
+import { formatPrice } from "../format";
 
-import type { IPaymentMethod, ITransport, TOrderFormData } from "@/types";
+import type { IPaymentMethod, ITransport, TOrderFormData } from "../types";
 
 const router = useRouter();
 
@@ -56,7 +63,10 @@ async function loadDictionaries(): Promise<void> {
   isLoading.value = true;
 
   try {
-    const [transportsReply, paymentMethodsReply] = await Promise.all([fetchTransports(), fetchPaymentMethods()]);
+    const [transportsReply, paymentMethodsReply] = await Promise.all([
+      fetchTransports(),
+      fetchPaymentMethods(),
+    ]);
 
     transports.value = transportsReply.data;
     paymentMethods.value = paymentMethodsReply.data;

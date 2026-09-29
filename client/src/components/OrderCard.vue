@@ -5,7 +5,9 @@
         <p class="number">{{ formatOrderNumber(order._id) }}</p>
         <p class="date">Создана: {{ formatDate(order.createdAt) }}</p>
       </div>
-      <span class="status" :class="order.status">{{ ORDER_STATUS_LABEL[order.status] }}</span>
+      <span class="status" :class="order.status">{{
+        ORDER_STATUS_LABEL[order.status]
+      }}</span>
     </header>
 
     <dl class="rows">
@@ -28,19 +30,35 @@
     <div v-if="isAdmin" class="customer">
       <p class="customerTitle">Заявитель</p>
       <p>{{ order.customer.fullName }}, {{ order.customer.birthDate }}</p>
-      <p>{{ order.customer.phone }} · {{ order.customer.email }} · {{ order.customer.login }}</p>
+      <p>
+        {{ order.customer.phone }} · {{ order.customer.email }} ·
+        {{ order.customer.login }}
+      </p>
     </div>
 
     <div v-if="order.review" class="review">
-      <p class="reviewTitle">Отзыв клиента — {{ order.review.rating }} из {{ REVIEW_RATING_MAX }}</p>
+      <p class="reviewTitle">
+        Отзыв клиента — {{ order.review.rating }} из {{ REVIEW_RATING_MAX }}
+      </p>
       <p>{{ order.review.text }}</p>
     </div>
 
     <footer v-if="isAdmin || canWriteReview" class="actions">
-      <UiButton v-if="isAdmin" isNarrow :isDisabled="!hasTransitions" @click="changeStatus">
+      <UiButton
+        v-if="isAdmin"
+        isNarrow
+        :isDisabled="!hasTransitions"
+        @click="changeStatus"
+      >
         Сменить статус
       </UiButton>
-      <UiButton v-if="canWriteReview" isNarrow layout="accent" @click="writeReview">Оставить отзыв</UiButton>
+      <UiButton
+        v-if="canWriteReview"
+        isNarrow
+        layout="accent"
+        @click="writeReview"
+        >Оставить отзыв</UiButton
+      >
     </footer>
   </article>
 </template>
@@ -51,10 +69,14 @@ import { computed } from "vue";
 import { UiButton } from "mhz-ui";
 import { formatDate } from "mhz-helpers";
 
-import { ORDER_STATUS_LABEL, ORDER_STATUS_TRANSITIONS, REVIEW_RATING_MAX } from "@/constants";
-import { formatOrderNumber, formatPrice } from "@/format";
+import {
+  ORDER_STATUS_LABEL,
+  ORDER_STATUS_TRANSITIONS,
+  REVIEW_RATING_MAX,
+} from "../constants";
+import { formatOrderNumber, formatPrice } from "../format";
 
-import type { IOrder } from "@/types";
+import type { IOrder } from "../types";
 
 interface IProps {
   order: IOrder;
@@ -69,8 +91,13 @@ interface IEmit {
 const props = defineProps<IProps>();
 const emit = defineEmits<IEmit>();
 
-const hasTransitions = computed(() => ORDER_STATUS_TRANSITIONS[props.order.status].length > 0);
-const canWriteReview = computed(() => !props.isAdmin && props.order.status === "completed" && !props.order.review);
+const hasTransitions = computed(
+  () => ORDER_STATUS_TRANSITIONS[props.order.status].length > 0,
+);
+const canWriteReview = computed(
+  () =>
+    !props.isAdmin && props.order.status === "completed" && !props.order.review,
+);
 
 function changeStatus(): void {
   emit("changeStatus", props.order);
