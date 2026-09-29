@@ -28,7 +28,7 @@ npm run dev
 
 ## Доступ администратора
 
-Логин `Admin26`, пароль `Demo20` (значения берутся из `server/.env`, переменные `ADMIN_LOGIN`, `ADMIN_PASSWORD`).
+Логин `Admin26`, пароль `Demo20` (захардкожены в `server/src/seed.ts`, константы `ADMIN_LOGIN`, `ADMIN_PASSWORD`).
 Панель доступна по адресу `/admin` после входа под администратором.
 
 ## ER-диаграмма

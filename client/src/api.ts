@@ -20,7 +20,7 @@ import type {
 const API_TIMEOUT = 5000;
 
 export function setupApi(): void {
-  setBaseURL(import.meta.env.VITE_API || DEFAULT_API_URL);
+  setBaseURL(DEFAULT_API_URL);
   api.defaults.timeout = API_TIMEOUT;
 }
 

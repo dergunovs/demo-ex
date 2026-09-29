@@ -1,6 +1,9 @@
 import { hashPassword } from "./helpers.ts";
 import { CustomerModel, PaymentMethodModel, TransportModel } from "./models.ts";
 
+const ADMIN_LOGIN = "Admin26";
+const ADMIN_PASSWORD = "Demo20";
+
 const TRANSPORTS = [
   {
     title: "Катер",
@@ -26,13 +29,11 @@ const PAYMENT_METHODS = [
 ];
 
 export async function seedAdmin(): Promise<void> {
-  const login = process.env.ADMIN_LOGIN ?? "Admin26";
-
-  if (await CustomerModel.findOne({ login })) return;
+  if (await CustomerModel.findOne({ login: ADMIN_LOGIN })) return;
 
   await CustomerModel.create({
-    login,
-    password: await hashPassword(process.env.ADMIN_PASSWORD ?? "Demo20"),
+    login: ADMIN_LOGIN,
+    password: await hashPassword(ADMIN_PASSWORD),
     fullName: "Администратор портала",
     birthDate: "01.01.1980",
     phone: "+7 (900) 000-00-00",

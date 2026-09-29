@@ -15,5 +15,8 @@
   },
   "devDependencies": {
     "concurrently": "10.0.5"
+  },
+  "allowScripts": {
+    "vue-demi": true
   }
 }

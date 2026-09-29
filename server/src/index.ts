@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 import cors from "@fastify/cors";
 import jwt from "@fastify/jwt";
 import Fastify from "fastify";
@@ -10,10 +8,10 @@ import { seed } from "./seed.ts";
 
 import type { FastifyError } from "fastify";
 
-const PORT = Number(process.env.PORT ?? 5000);
+const PORT = 5000;
 const HOST = "127.0.0.1";
-const DATABASE = process.env.DATABASE ?? "driverf";
-const SECRET = process.env.SECRET ?? "driverf-secret";
+const DATABASE = "driverf";
+const SECRET = "driverf-secret";
 const MONGO_URL = `mongodb://127.0.0.1:27017/${DATABASE}`;
 
 export function buildApp() {
