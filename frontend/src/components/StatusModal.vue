@@ -37,13 +37,11 @@ import { computed, shallowRef } from "vue";
 
 import { UiModal } from "mhz-ui";
 
-import {
-  ORDER_STATUS_LABEL,
-  ORDER_STATUS_TRANSITIONS,
-} from "../constants/index";
+import { ORDER_STATUS_LABEL, ORDER_STATUS_TRANSITIONS } from "driverf-contracts";
+
 import { formatOrderNumber } from "../helpers/index";
 
-import type { IOrder, TOrderStatus } from "../types/index";
+import type { IOrder, TOrderStatus } from "driverf-contracts";
 
 interface IProps {
   modelValue: boolean;

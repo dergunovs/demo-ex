@@ -1,8 +1,8 @@
 import { Schema, Types, model } from "mongoose";
 
-import { ORDER_STATUSES } from "./constants.ts";
+import { ORDER_STATUSES } from "driverf-contracts";
 
-import type { TRole, TOrderStatus } from "./constants.ts";
+import type { TRole, TOrderStatus } from "driverf-contracts";
 
 export interface ICustomerEntity {
   _id: Types.ObjectId;

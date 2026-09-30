@@ -84,7 +84,7 @@ import OrderCard from "../components/OrderCard.vue";
 import ReviewForm from "../components/ReviewForm.vue";
 import { SLIDES, URLS } from "../constants/index";
 
-import type { IOrder } from "../types/index";
+import type { IOrder } from "driverf-contracts";
 
 const router = useRouter();
 

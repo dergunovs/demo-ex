@@ -50,7 +50,7 @@ import OrderForm from "../components/OrderForm.vue";
 import { URLS } from "../constants/index";
 import { formatPrice } from "../helpers/index";
 
-import type { IPaymentMethod, ITransport, TOrderFormData } from "../types/index";
+import type { IPaymentMethod, ITransport, TOrderFormData } from "driverf-contracts";
 
 const router = useRouter();
 

@@ -6,8 +6,9 @@ import {
   ORDER_STATUSES,
   ORDER_STATUS_LABEL,
   PAGE_LIMIT,
-  TOKEN_LIFETIME,
-} from "./constants.ts";
+} from "driverf-contracts";
+
+import { TOKEN_LIFETIME } from "./constants.ts";
 
 import {
   attachReviews,
@@ -41,7 +42,7 @@ import type {
   TOrderStatus,
   TRegisterData,
   TReviewData,
-} from "./constants.ts";
+} from "driverf-contracts";
 
 import type {
   ICustomerEntity,

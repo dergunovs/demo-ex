@@ -53,15 +53,14 @@ import { computed, ref, shallowRef } from "vue";
 import { UiButton, UiField, UiFlex, UiInput, UiSelect } from "mhz-ui";
 import { required, useValidate } from "mhz-helpers";
 
-import { DATE_LENGTH, DATE_PATTERN, DATE_PLACEHOLDER } from "../constants/index";
+import { DATE_PATTERN, DATE_PLACEHOLDER } from "driverf-contracts";
+
+import { DATE_LENGTH } from "../constants/index";
 import { formatDateInput, formatPrice } from "../helpers/index";
 
-import type {
-  IPaymentMethod,
-  ISelectOption,
-  ITransport,
-  TOrderFormData,
-} from "../types/index";
+import type { IPaymentMethod, ITransport, TOrderFormData } from "driverf-contracts";
+
+import type { ISelectOption } from "../types/index";
 
 interface IProps {
   transports: ITransport[];

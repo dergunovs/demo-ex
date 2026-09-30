@@ -89,16 +89,12 @@ import {
 } from "mhz-helpers";
 
 import { registerCustomer } from "../api/index";
-import {
-  DATE_LENGTH,
-  DATE_PATTERN,
-  DATE_PLACEHOLDER,
-  PASSWORD_MIN,
-  URLS,
-} from "../constants/index";
+import { DATE_PATTERN, DATE_PLACEHOLDER, PASSWORD_MIN } from "driverf-contracts";
+
+import { DATE_LENGTH, URLS } from "../constants/index";
 import { formatDateInput } from "../helpers/index";
 
-import type { TRegisterData } from "../types/index";
+import type { TRegisterData } from "driverf-contracts";
 
 const router = useRouter();
 

@@ -1,16 +1,9 @@
-import type { ISelectOption, TOrderStatus } from "../types/index";
+import { ORDER_STATUS_LABEL } from "driverf-contracts";
+
+import type { TOrderStatus } from "driverf-contracts";
+import type { ISelectOption } from "../types/index";
 
 export const DEFAULT_API_URL = "http://127.0.0.1:5000/api";
-
-export const API_URLS = {
-  register: "/register",
-  login: "/login",
-  me: "/me",
-  transports: "/transports",
-  paymentMethods: "/payment-methods",
-  orders: "/orders",
-  reviews: "/reviews",
-} as const;
 
 export const URLS = {
   home: "/",
@@ -20,18 +13,6 @@ export const URLS = {
   order: "/order",
   admin: "/admin",
 } as const;
-
-export const ORDER_STATUS_LABEL: Record<TOrderStatus, string> = {
-  new: "Новая",
-  inProgress: "Идет обучение",
-  completed: "Обучение завершено",
-};
-
-export const ORDER_STATUS_TRANSITIONS: Record<TOrderStatus, TOrderStatus[]> = {
-  new: ["inProgress", "completed"],
-  inProgress: ["completed"],
-  completed: [],
-};
 
 export const ORDER_STATUS_OPTIONS: ISelectOption[] = (
   Object.keys(ORDER_STATUS_LABEL) as TOrderStatus[]

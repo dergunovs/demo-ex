@@ -70,7 +70,7 @@ import BaseSlider from "../components/BaseSlider.vue";
 import { SLIDES, URLS } from "../constants/index";
 import { formatPrice } from "../helpers/index";
 
-import type { ITransport } from "../types/index";
+import type { ITransport } from "driverf-contracts";
 
 interface IStep {
   title: string;

@@ -49,7 +49,7 @@ import { loginCustomer } from "../api/index";
 import { applyToken, currentUser } from "../auth/index";
 import { URLS } from "../constants/index";
 
-import type { TLoginData } from "../types/index";
+import type { TLoginData } from "driverf-contracts";
 
 const route = useRoute();
 const router = useRouter();

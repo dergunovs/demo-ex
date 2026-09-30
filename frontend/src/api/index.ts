@@ -1,6 +1,8 @@
 import { api, setBaseURL } from "mhz-helpers";
 
-import { API_URLS, DEFAULT_API_URL } from "../constants/index";
+import { API_URLS } from "driverf-contracts";
+
+import { DEFAULT_API_URL } from "../constants/index";
 
 import type {
   ICustomer,
@@ -15,7 +17,7 @@ import type {
   TOrderStatus,
   TRegisterData,
   TReviewData,
-} from "../types/index";
+} from "driverf-contracts";
 
 const API_TIMEOUT = 5000;
 

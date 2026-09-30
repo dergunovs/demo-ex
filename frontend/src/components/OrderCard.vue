@@ -69,14 +69,12 @@ import { computed } from "vue";
 import { UiButton } from "mhz-ui";
 import { formatDate } from "mhz-helpers";
 
-import {
-  ORDER_STATUS_LABEL,
-  ORDER_STATUS_TRANSITIONS,
-  REVIEW_RATING_MAX,
-} from "../constants/index";
+import { ORDER_STATUS_LABEL, ORDER_STATUS_TRANSITIONS } from "driverf-contracts";
+
+import { REVIEW_RATING_MAX } from "../constants/index";
 import { formatOrderNumber, formatPrice } from "../helpers/index";
 
-import type { IOrder } from "../types/index";
+import type { IOrder } from "driverf-contracts";
 
 interface IProps {
   order: IOrder;

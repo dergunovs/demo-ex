@@ -7,7 +7,7 @@ import {
   ORDER_STATUS_TRANSITIONS,
   PASSWORD_MIN,
   PHONE_PATTERN,
-} from "./constants.ts";
+} from "driverf-contracts";
 
 import type {
   ICustomer,
@@ -17,7 +17,7 @@ import type {
   ITransport,
   TOrderStatus,
   TRegisterData,
-} from "./constants.ts";
+} from "driverf-contracts";
 
 import type {
   ICustomerEntity,

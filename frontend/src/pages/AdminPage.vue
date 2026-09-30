@@ -121,13 +121,9 @@ import OrderCard from "../components/OrderCard.vue";
 import StatusModal from "../components/StatusModal.vue";
 import { ORDER_STATUS_OPTIONS, SORT_OPTIONS } from "../constants/index";
 
-import type {
-  IOrder,
-  IOrdersFilter,
-  ISelectOption,
-  TDirection,
-  TOrderStatus,
-} from "../types/index";
+import type { IOrder, TDirection, TOrderStatus } from "driverf-contracts";
+
+import type { IOrdersFilter, ISelectOption } from "../types/index";
 
 const orders = ref<IOrder[]>([]);
 const transportOptions = ref<ISelectOption[]>([]);

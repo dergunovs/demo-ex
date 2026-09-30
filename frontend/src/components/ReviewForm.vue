@@ -42,7 +42,7 @@ import { createReview } from "../api/index";
 import { REVIEW_RATING_MAX } from "../constants/index";
 import { formatOrderNumber } from "../helpers/index";
 
-import type { IOrder } from "../types/index";
+import type { IOrder } from "driverf-contracts";
 
 interface IProps {
   order: IOrder;
