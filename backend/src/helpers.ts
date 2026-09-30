@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import { Types } from "mongoose";
 
 import {
   DATE_PATTERN,
@@ -8,6 +9,8 @@ import {
   PASSWORD_MIN,
   PHONE_PATTERN,
 } from "driverf-contracts";
+
+import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
 import type {
   ICustomer,
@@ -23,8 +26,9 @@ import type {
   ICustomerEntity,
   IPaymentMethodEntity,
   IReviewEntity,
+  ITokenPayload,
   ITransportEntity,
-} from "./models.ts";
+} from "./types.ts";
 
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, 10);
@@ -131,4 +135,24 @@ export function attachReviews(orders: IOrder[], reviews: IReviewEntity[]): IOrde
 
 export function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export function isId(value: string | undefined): value is string {
+  return !!value && Types.ObjectId.isValid(value);
+}
+
+export async function getTokenPayload(request: FastifyRequest): Promise<ITokenPayload | undefined> {
+  try {
+    return await request.jwtVerify<ITokenPayload>();
+  } catch {
+    return undefined;
+  }
+}
+
+export function createToken(app: FastifyInstance, payload: ITokenPayload): string {
+  return app.jwt.sign({ _id: payload._id, role: payload.role }, { expiresIn: "7d" });
+}
+
+export function sendUnauthorized(reply: FastifyReply) {
+  return reply.code(401).send({ message: "Требуется авторизация" });
 }

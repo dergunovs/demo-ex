@@ -119,8 +119,8 @@ frontend/                   # Vue 3 + Vite
   src/styles/main.scss      # темы mhz-ui, адаптив, микроанимации
   src/types/index.ts        # типы данных
 backend/                    # Fastify + Mongoose
-  src/constants.ts          # типы, паттерны, статусы, пути API
-  src/helpers.ts            # хэширование, валидация, DTO, переходы статусов
+  src/types.ts              # интерфейсы сущностей Mongoose и payload токена
+  src/helpers.ts            # хэширование, валидация, DTO, JWT, переходы статусов
   src/models.ts             # 5 схем Mongoose
   src/routes.ts             # 9 эндпоинтов
   src/seed.ts               # идемпотентное сидирование

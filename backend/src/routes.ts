@@ -8,14 +8,16 @@ import {
   PAGE_LIMIT,
 } from "driverf-contracts";
 
-import { TOKEN_LIFETIME } from "./constants.ts";
-
 import {
   attachReviews,
   checkPassword,
+  createToken,
   escapeRegExp,
+  getTokenPayload,
   hashPassword,
+  isId,
   parseRuDate,
+  sendUnauthorized,
   toCustomerDTO,
   toPaymentMethodDTO,
   toTransportDTO,
@@ -32,11 +34,10 @@ import {
 } from "./models.ts";
 
 import type { QueryFilter } from "mongoose";
-import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyInstance } from "fastify";
 
 import type {
   IOrder,
-  TRole,
   TLoginData,
   TOrderFormData,
   TOrderStatus,
@@ -49,28 +50,7 @@ import type {
   IOrderEntity,
   IPaymentMethodEntity,
   ITransportEntity,
-} from "./models.ts";
-
-interface ITokenPayload {
-  _id: string;
-  role: TRole;
-}
-
-function isId(value: string | undefined): value is string {
-  return !!value && Types.ObjectId.isValid(value);
-}
-
-async function getTokenPayload(request: FastifyRequest): Promise<ITokenPayload | undefined> {
-  try {
-    return await request.jwtVerify<ITokenPayload>();
-  } catch {
-    return undefined;
-  }
-}
-
-function sendUnauthorized(reply: FastifyReply) {
-  return reply.code(401).send({ message: "Требуется авторизация" });
-}
+} from "./types.ts";
 
 export async function registerRoutes(app: FastifyInstance): Promise<void> {
   app.post(API_URLS.register, async (request, reply) => {
@@ -113,7 +93,7 @@ export async function registerRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(401).send({ message: "Неверный пароль" });
     }
 
-    const token = app.jwt.sign({ _id: String(customer._id), role: customer.role }, { expiresIn: TOKEN_LIFETIME });
+    const token = createToken(app, { _id: String(customer._id), role: customer.role });
 
     return reply.send({ token, user: toCustomerDTO(customer) });
   });
@@ -141,6 +121,7 @@ export async function registerRoutes(app: FastifyInstance): Promise<void> {
 
     return paymentMethods.map(toPaymentMethodDTO);
   });
+
   app.post(API_URLS.orders, async (request, reply) => {
     const payload = await getTokenPayload(request);
 
@@ -176,6 +157,7 @@ export async function registerRoutes(app: FastifyInstance): Promise<void> {
 
     return reply.code(201).send({ message: "Заявка отправлена на согласование", _id: String(order._id) });
   });
+
   app.get(API_URLS.orders, async (request, reply) => {
     const payload = await getTokenPayload(request);
 
@@ -236,6 +218,7 @@ export async function registerRoutes(app: FastifyInstance): Promise<void> {
 
     return reply.send({ data: attachReviews(data, reviews), total });
   });
+
   app.patch(`${API_URLS.orders}/:id`, async (request, reply) => {
     const payload = await getTokenPayload(request);
 
@@ -313,9 +296,4 @@ export async function registerRoutes(app: FastifyInstance): Promise<void> {
 
     return reply.code(201).send({ message: "Спасибо за отзыв" });
   });
-
-
-
-
-
 }
