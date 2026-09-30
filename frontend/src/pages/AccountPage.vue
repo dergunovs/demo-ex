@@ -77,14 +77,14 @@ import { RouterLink, useRouter } from "vue-router";
 import { UiButton, UiFlex, UiModal, toast } from "mhz-ui";
 import { handleError } from "mhz-helpers";
 
-import { fetchOrders } from "../api";
-import { currentUser, isAdmin, logoutUser } from "../auth";
+import { fetchOrders } from "../api/index";
+import { currentUser, isAdmin, logoutUser } from "../auth/index";
 import BaseSlider from "../components/BaseSlider.vue";
 import OrderCard from "../components/OrderCard.vue";
 import ReviewForm from "../components/ReviewForm.vue";
-import { ACCOUNT_ORDERS_LIMIT, SLIDES, URLS } from "../constants";
+import { SLIDES, URLS } from "../constants/index";
 
-import type { IOrder } from "../types";
+import type { IOrder } from "../types/index";
 
 const router = useRouter();
 
@@ -98,7 +98,7 @@ const roleLabel = computed(() => (isAdmin.value ? "Администратор" :
 async function loadOrders(): Promise<void> {
   try {
     const { data } = await fetchOrders({
-      limit: ACCOUNT_ORDERS_LIMIT,
+      limit: 50,
       sort: "createdAt",
       dir: "desc",
     });

@@ -108,13 +108,17 @@ erDiagram
 ## Структура
 
 ```
-client/                     # Vue 3 + Vite
-  src/api.ts                # запросы к API
-  src/auth.ts               # текущий пользователь и токен
+frontend/                   # Vue 3 + Vite
+  src/api/index.ts          # запросы к API
+  src/auth/index.ts         # текущий пользователь и токен
   src/components/           # AppHeader, BaseSlider, OrderCard, OrderForm, ReviewForm, StatusModal
+  src/constants/index.ts    # переиспользуемые константы приложения
+  src/helpers/index.ts      # вспомогательные функции
   src/pages/                # Home, Login, Register, Account, Order, Admin
+  src/router/index.ts       # маршруты и защита переходов
   src/styles/main.scss      # темы mhz-ui, адаптив, микроанимации
-server/                     # Fastify + Mongoose
+  src/types/index.ts        # типы данных
+backend/                    # Fastify + Mongoose
   src/constants.ts          # типы, паттерны, статусы, пути API
   src/helpers.ts            # хэширование, валидация, DTO, переходы статусов
   src/models.ts             # 5 схем Mongoose

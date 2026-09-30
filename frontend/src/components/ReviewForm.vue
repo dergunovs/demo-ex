@@ -38,11 +38,11 @@ import { ref, shallowRef } from "vue";
 import { UiButton, UiField, UiFlex, UiTextarea, toast } from "mhz-ui";
 import { handleError, min, required, useValidate } from "mhz-helpers";
 
-import { createReview } from "../api";
-import { REVIEW_RATING_MAX, REVIEW_TEXT_MIN } from "../constants";
-import { formatOrderNumber } from "../format";
+import { createReview } from "../api/index";
+import { REVIEW_RATING_MAX } from "../constants/index";
+import { formatOrderNumber } from "../helpers/index";
 
-import type { IOrder } from "../types";
+import type { IOrder } from "../types/index";
 
 interface IProps {
   order: IOrder;
@@ -76,7 +76,7 @@ const { error, isValid } = useValidate(
   formData,
   {
     rating: [ratingRule],
-    text: [required("ru"), min(REVIEW_TEXT_MIN, "ru")],
+    text: [required("ru"), min(10, "ru")],
   },
   "ru",
 );

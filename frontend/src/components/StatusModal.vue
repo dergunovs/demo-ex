@@ -37,10 +37,13 @@ import { computed, shallowRef } from "vue";
 
 import { UiModal } from "mhz-ui";
 
-import { ORDER_STATUS_LABEL, ORDER_STATUS_TRANSITIONS } from "../constants";
-import { formatOrderNumber } from "../format";
+import {
+  ORDER_STATUS_LABEL,
+  ORDER_STATUS_TRANSITIONS,
+} from "../constants/index";
+import { formatOrderNumber } from "../helpers/index";
 
-import type { IOrder, TOrderStatus } from "../types";
+import type { IOrder, TOrderStatus } from "../types/index";
 
 interface IProps {
   modelValue: boolean;

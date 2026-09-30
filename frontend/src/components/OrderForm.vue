@@ -53,15 +53,15 @@ import { computed, ref, shallowRef } from "vue";
 import { UiButton, UiField, UiFlex, UiInput, UiSelect } from "mhz-ui";
 import { required, useValidate } from "mhz-helpers";
 
-import { DATE_LENGTH, DATE_PATTERN, DATE_PLACEHOLDER } from "../constants";
-import { formatDateInput, formatPrice } from "../format";
+import { DATE_LENGTH, DATE_PATTERN, DATE_PLACEHOLDER } from "../constants/index";
+import { formatDateInput, formatPrice } from "../helpers/index";
 
 import type {
   IPaymentMethod,
   ISelectOption,
   ITransport,
   TOrderFormData,
-} from "../types";
+} from "../types/index";
 
 interface IProps {
   transports: ITransport[];

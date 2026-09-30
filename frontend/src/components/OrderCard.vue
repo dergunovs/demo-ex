@@ -73,10 +73,10 @@ import {
   ORDER_STATUS_LABEL,
   ORDER_STATUS_TRANSITIONS,
   REVIEW_RATING_MAX,
-} from "../constants";
-import { formatOrderNumber, formatPrice } from "../format";
+} from "../constants/index";
+import { formatOrderNumber, formatPrice } from "../helpers/index";
 
-import type { IOrder } from "../types";
+import type { IOrder } from "../types/index";
 
 interface IProps {
   order: IOrder;

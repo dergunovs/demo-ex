@@ -1,6 +1,6 @@
 import { api, setBaseURL } from "mhz-helpers";
 
-import { API_URLS, DEFAULT_API_URL } from "./constants";
+import { API_URLS, DEFAULT_API_URL } from "../constants/index";
 
 import type {
   ICustomer,
@@ -15,7 +15,7 @@ import type {
   TOrderStatus,
   TRegisterData,
   TReviewData,
-} from "./types";
+} from "../types/index";
 
 const API_TIMEOUT = 5000;
 

@@ -64,13 +64,13 @@ import { useRouter } from "vue-router";
 import { UiButton, UiFlex, toast } from "mhz-ui";
 import { handleError } from "mhz-helpers";
 
-import { fetchTransports } from "../api";
-import { isAuth } from "../auth";
+import { fetchTransports } from "../api/index";
+import { isAuth } from "../auth/index";
 import BaseSlider from "../components/BaseSlider.vue";
-import { SLIDES, URLS } from "../constants";
-import { formatPrice } from "../format";
+import { SLIDES, URLS } from "../constants/index";
+import { formatPrice } from "../helpers/index";
 
-import type { ITransport } from "../types";
+import type { ITransport } from "../types/index";
 
 interface IStep {
   title: string;

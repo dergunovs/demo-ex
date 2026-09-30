@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, shallowRef } from "vue";
 
-import { SLIDE_INTERVAL } from "../constants";
+import { SLIDE_INTERVAL } from "../constants/index";
 
 interface IProps {
   images: string[];

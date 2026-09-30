@@ -31,7 +31,9 @@
         >Еще не зарегистрированы? Регистрация</RouterLink
       >
 
-      <p class="hint">{{ ADMIN_HINT }}</p>
+      <p class="hint">
+        Панель администратора доступна после входа с логином Admin26
+      </p>
     </div>
   </div>
 </template>
@@ -43,11 +45,11 @@ import { RouterLink, useRoute, useRouter } from "vue-router";
 import { UiButton, UiField, UiFlex, UiInput, toast } from "mhz-ui";
 import { handleError, min, required, useValidate } from "mhz-helpers";
 
-import { loginCustomer } from "../api";
-import { applyToken, currentUser } from "../auth";
-import { ADMIN_HINT, PASSWORD_MIN, URLS } from "../constants";
+import { loginCustomer } from "../api/index";
+import { applyToken, currentUser } from "../auth/index";
+import { URLS } from "../constants/index";
 
-import type { TLoginData } from "../types";
+import type { TLoginData } from "../types/index";
 
 const route = useRoute();
 const router = useRouter();

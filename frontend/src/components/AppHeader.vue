@@ -73,8 +73,8 @@ import { useRoute, useRouter } from "vue-router";
 import { UiButton, toast } from "mhz-ui";
 import { isLinkActive } from "mhz-helpers";
 
-import { currentUser, isAdmin, isAuth, logoutUser } from "../auth";
-import { URLS } from "../constants";
+import { currentUser, isAdmin, isAuth, logoutUser } from "../auth/index";
+import { URLS } from "../constants/index";
 
 const route = useRoute();
 const router = useRouter();

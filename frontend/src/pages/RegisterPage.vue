@@ -7,7 +7,7 @@
         <UiField label="Логин" :error="error('login')" isRequired>
           <UiInput
             :model-value="formData.login"
-            :placeholder="LOGIN_HINT"
+            placeholder="Латинские буквы и цифры, минимум 6 символов"
             :is-disabled="isSending"
             @update:model-value="writeField('login', $event)"
           />
@@ -46,7 +46,7 @@
           <UiInput
             :model-value="formData.phone"
             type="tel"
-            :placeholder="PHONE_PLACEHOLDER"
+            placeholder="+7 (900) 000-00-00"
             :is-disabled="isSending"
             @update:model-value="writeField('phone', $event)"
           />
@@ -88,21 +88,17 @@ import {
   useValidate,
 } from "mhz-helpers";
 
-import { registerCustomer } from "../api";
+import { registerCustomer } from "../api/index";
 import {
   DATE_LENGTH,
   DATE_PATTERN,
   DATE_PLACEHOLDER,
-  LOGIN_HINT,
-  LOGIN_PATTERN,
   PASSWORD_MIN,
-  PHONE_PATTERN,
-  PHONE_PLACEHOLDER,
   URLS,
-} from "../constants";
-import { formatDateInput } from "../format";
+} from "../constants/index";
+import { formatDateInput } from "../helpers/index";
 
-import type { TRegisterData } from "../types";
+import type { TRegisterData } from "../types/index";
 
 const router = useRouter();
 
@@ -121,7 +117,13 @@ const notice = shallowRef("");
 const { error, isValid } = useValidate(
   formData,
   {
-    login: [required("ru"), { pattern: LOGIN_PATTERN, message: LOGIN_HINT }],
+    login: [
+      required("ru"),
+      {
+        pattern: /^[a-zA-Z0-9]{6,}$/,
+        message: "Латинские буквы и цифры, минимум 6 символов",
+      },
+    ],
     password: [required("ru"), min(PASSWORD_MIN, "ru")],
     fullName: [required("ru"), letters("ru")],
     birthDate: [
@@ -131,7 +133,7 @@ const { error, isValid } = useValidate(
     phone: [
       required("ru"),
       {
-        pattern: PHONE_PATTERN,
+        pattern: /^\+?[\d\s()-]{10,18}$/,
         message: "Телефон в формате +7 (900) 000-00-00",
       },
     ],

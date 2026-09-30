@@ -49,7 +49,7 @@
         <UiField label="Поиск заявителя">
           <UiInput
             :model-value="searchDraft"
-            :placeholder="SEARCH_HINT"
+            placeholder="Поиск по ФИО, логину или почте"
             @update:model-value="writeSearch"
             @keyup.enter="applyFilters"
           />
@@ -87,7 +87,7 @@
       </div>
 
       <UiPagination
-        v-if="total > PAGE_LIMIT"
+        v-if="total > 5"
         class="pagination"
         :page="page"
         :total="totalPages"
@@ -116,15 +116,10 @@ import {
 } from "mhz-ui";
 import { handleError } from "mhz-helpers";
 
-import { fetchOrders, fetchTransports, updateOrderStatus } from "../api";
+import { fetchOrders, fetchTransports, updateOrderStatus } from "../api/index";
 import OrderCard from "../components/OrderCard.vue";
 import StatusModal from "../components/StatusModal.vue";
-import {
-  ORDER_STATUS_OPTIONS,
-  PAGE_LIMIT,
-  SEARCH_HINT,
-  SORT_OPTIONS,
-} from "../constants";
+import { ORDER_STATUS_OPTIONS, SORT_OPTIONS } from "../constants/index";
 
 import type {
   IOrder,
@@ -132,7 +127,7 @@ import type {
   ISelectOption,
   TDirection,
   TOrderStatus,
-} from "../types";
+} from "../types/index";
 
 const orders = ref<IOrder[]>([]);
 const transportOptions = ref<ISelectOption[]>([]);
@@ -146,9 +141,7 @@ const sortDir = shallowRef<TDirection>("desc");
 const selectedOrder = shallowRef<IOrder | null>(null);
 const isShowStatusModal = shallowRef(false);
 
-const totalPages = computed(() =>
-  Math.max(1, Math.ceil(total.value / PAGE_LIMIT)),
-);
+const totalPages = computed(() => Math.max(1, Math.ceil(total.value / 5)));
 const statusOption = computed(() =>
   ORDER_STATUS_OPTIONS.find((option) => option._id === filter.value.status),
 );
@@ -171,7 +164,7 @@ async function loadOrders(): Promise<void> {
   try {
     const { data } = await fetchOrders({
       page: page.value,
-      limit: PAGE_LIMIT,
+      limit: 5,
       sort: sortField.value,
       dir: sortDir.value,
       status: filter.value.status || undefined,

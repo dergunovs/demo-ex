@@ -45,12 +45,12 @@ import { useRouter } from "vue-router";
 import { toast } from "mhz-ui";
 import { handleError } from "mhz-helpers";
 
-import { createOrder, fetchPaymentMethods, fetchTransports } from "../api";
+import { createOrder, fetchPaymentMethods, fetchTransports } from "../api/index";
 import OrderForm from "../components/OrderForm.vue";
-import { URLS } from "../constants";
-import { formatPrice } from "../format";
+import { URLS } from "../constants/index";
+import { formatPrice } from "../helpers/index";
 
-import type { IPaymentMethod, ITransport, TOrderFormData } from "../types";
+import type { IPaymentMethod, ITransport, TOrderFormData } from "../types/index";
 
 const router = useRouter();
 

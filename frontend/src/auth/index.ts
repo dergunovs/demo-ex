@@ -2,10 +2,11 @@ import { computed, shallowRef } from "vue";
 
 import { deleteAuthHeader, deleteCookieToken, getCookieToken, setAuthHeader, setCookieToken } from "mhz-helpers";
 
-import { fetchMe } from "./api";
-import { TOKEN_NAME } from "./constants";
+import { fetchMe } from "../api/index";
 
-import type { ICustomer } from "./types";
+import type { ICustomer } from "../types/index";
+
+const TOKEN_NAME = "driverfToken";
 
 export const currentUser = shallowRef<ICustomer>();
 export const isAuth = computed(() => !!currentUser.value);
