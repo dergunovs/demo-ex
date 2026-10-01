@@ -1,8 +1,6 @@
-import { api, setBaseURL } from "mhz-helpers";
+import { api } from "mhz-helpers";
 
 import { API_URLS } from "driverf-contracts";
-
-import { DEFAULT_API_URL } from "../constants/index";
 
 import type {
   ICustomer,
@@ -18,13 +16,6 @@ import type {
   TRegisterData,
   TReviewData,
 } from "driverf-contracts";
-
-const API_TIMEOUT = 5000;
-
-export function setupApi(): void {
-  setBaseURL(DEFAULT_API_URL);
-  api.defaults.timeout = API_TIMEOUT;
-}
 
 export function registerCustomer(data: TRegisterData) {
   return api.post<TMessageReply>(API_URLS.register, data);

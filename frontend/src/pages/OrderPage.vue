@@ -11,8 +11,8 @@
 
         <OrderForm
           :transports="transports"
-          :payment-methods="paymentMethods"
-          :is-loading="isSending || isLoading"
+          :paymentMethods="paymentMethods"
+          :isLoading="isSending || isLoading"
           @submit="submitOrder"
         />
       </section>
@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, shallowRef } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import { toast } from "mhz-ui";
@@ -61,8 +61,8 @@ const router = useRouter();
 
 const transports = ref<ITransport[]>([]);
 const paymentMethods = ref<IPaymentMethod[]>([]);
-const isLoading = shallowRef(true);
-const isSending = shallowRef(false);
+const isLoading = ref(true);
+const isSending = ref(false);
 
 async function loadDictionaries(): Promise<void> {
   isLoading.value = true;

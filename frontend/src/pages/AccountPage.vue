@@ -48,7 +48,7 @@
           v-for="order in orders"
           :key="order._id"
           :order="order"
-          @write-review="openReviewModal"
+          @writeReview="openReviewModal"
         />
       </div>
 
@@ -71,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, shallowRef } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 
 import { UiButton, UiFlex, UiModal, toast } from "mhz-ui";
@@ -89,9 +89,9 @@ import type { IOrder } from "driverf-contracts";
 const router = useRouter();
 
 const orders = ref<IOrder[]>([]);
-const isLoaded = shallowRef(false);
-const selectedOrder = shallowRef<IOrder | null>(null);
-const isShowReviewModal = shallowRef(false);
+const isLoaded = ref(false);
+const selectedOrder = ref<IOrder | null>(null);
+const isShowReviewModal = ref(false);
 
 const roleLabel = computed(() => (isAdmin.value ? "Администратор" : "Клиент"));
 

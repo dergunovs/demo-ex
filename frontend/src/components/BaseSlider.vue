@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, onUnmounted, shallowRef} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 
 import {SLIDE_INTERVAL} from "../constants/index";
 
@@ -33,7 +33,7 @@ interface IProps {
 
 const props = withDefaults(defineProps<IProps>(), {interval: SLIDE_INTERVAL});
 
-const activeIndex = shallowRef(0);
+const activeIndex = ref(0);
 let timer: number | undefined;
 
 function showNextSlide(): void {

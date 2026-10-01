@@ -20,39 +20,14 @@
 
       <nav class="nav" :class="{ navOpen: isMenuOpen }">
         <RouterLink
-          :to="URLS.home"
+          v-for="link in menuLinks"
+          :key="link.url"
+          :to="link.url"
           class="link"
-          :class="{ linkActive: isLinkActive(route.path, URLS.home) }"
+          :class="{ linkActive: isLinkActive(route.path, link.url) }"
           @click="closeMenu"
         >
-          Главная
-        </RouterLink>
-        <RouterLink
-          v-if="isAuth"
-          :to="URLS.order"
-          class="link"
-          :class="{ linkActive: isLinkActive(route.path, URLS.order) }"
-          @click="closeMenu"
-        >
-          Оформить заявку
-        </RouterLink>
-        <RouterLink
-          v-if="isAuth"
-          :to="URLS.account"
-          class="link"
-          :class="{ linkActive: isLinkActive(route.path, URLS.account) }"
-          @click="closeMenu"
-        >
-          Личный кабинет
-        </RouterLink>
-        <RouterLink
-          v-if="isAdmin"
-          :to="URLS.admin"
-          class="link"
-          :class="{ linkActive: isLinkActive(route.path, URLS.admin) }"
-          @click="closeMenu"
-        >
-          Админ-панель
+          {{ link.title }}
         </RouterLink>
 
         <span v-if="currentUser" class="user">{{ currentUser.fullName }}</span>
@@ -67,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { shallowRef } from "vue";
+import { computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 import { UiButton, toast } from "mhz-ui";
@@ -76,10 +51,27 @@ import { isLinkActive } from "mhz-helpers";
 import { currentUser, isAdmin, isAuth, logoutUser } from "../auth/index";
 import { LOGO, URLS } from "../constants/index";
 
+interface IMenuLink {
+  title: string;
+  url: TMenuUrl;
+  isVisible: boolean;
+}
+
+type TMenuUrl = (typeof URLS)[keyof typeof URLS];
+
 const route = useRoute();
 const router = useRouter();
 
-const isMenuOpen = shallowRef(false);
+const isMenuOpen = ref(false);
+
+const menuLinks = computed<IMenuLink[]>(() =>
+  [
+    { title: "Главная", url: URLS.home, isVisible: true },
+    { title: "Оформить заявку", url: URLS.order, isVisible: isAuth.value },
+    { title: "Личный кабинет", url: URLS.account, isVisible: isAuth.value },
+    { title: "Админ-панель", url: URLS.admin, isVisible: isAdmin.value },
+  ].filter((link) => link.isVisible),
+);
 
 function toggleMenu(): void {
   isMenuOpen.value = !isMenuOpen.value;

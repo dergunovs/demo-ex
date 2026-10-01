@@ -22,35 +22,35 @@
       <div class="filters">
         <UiField label="Статус заявки">
           <UiSelect
-            :model-value="statusOption"
+            :modelValue="statusOption"
             :options="ORDER_STATUS_OPTIONS"
             isClearable
-            @update:model-value="chooseStatus"
+            @update:modelValue="chooseStatus"
           />
         </UiField>
 
         <UiField label="Вид транспорта">
           <UiSelect
-            :model-value="transportOption"
+            :modelValue="transportOption"
             :options="transportOptions"
             isClearable
-            @update:model-value="chooseTransport"
+            @update:modelValue="chooseTransport"
           />
         </UiField>
 
         <UiField label="Сортировка">
           <UiSelect
-            :model-value="sortOption"
+            :modelValue="sortOption"
             :options="SORT_OPTIONS"
-            @update:model-value="chooseSort"
+            @update:modelValue="chooseSort"
           />
         </UiField>
 
         <UiField label="Поиск заявителя">
           <UiInput
-            :model-value="searchDraft"
+            :modelValue="searchDraft"
             placeholder="Поиск по ФИО, логину или почте"
-            @update:model-value="writeSearch"
+            @update:modelValue="writeSearch"
             @keyup.enter="applyFilters"
           />
         </UiField>
@@ -82,7 +82,7 @@
           :key="order._id"
           :order="order"
           isAdmin
-          @change-status="openStatusModal"
+          @changeStatus="openStatusModal"
         />
       </div>
 
@@ -104,7 +104,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, shallowRef } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 import {
   UiButton,
@@ -128,14 +128,14 @@ import type { IOrdersFilter, ISelectOption } from "../types/index";
 const orders = ref<IOrder[]>([]);
 const transportOptions = ref<ISelectOption[]>([]);
 const total = ref(0);
-const page = shallowRef(1);
-const isLoading = shallowRef(false);
+const page = ref(1);
+const isLoading = ref(false);
 const filter = ref<IOrdersFilter>({ status: "", transport: "", search: "" });
-const searchDraft = shallowRef("");
-const sortField = shallowRef("createdAt");
-const sortDir = shallowRef<TDirection>("desc");
-const selectedOrder = shallowRef<IOrder | null>(null);
-const isShowStatusModal = shallowRef(false);
+const searchDraft = ref("");
+const sortField = ref("createdAt");
+const sortDir = ref<TDirection>("desc");
+const selectedOrder = ref<IOrder | null>(null);
+const isShowStatusModal = ref(false);
 
 const totalPages = computed(() => Math.max(1, Math.ceil(total.value / 5)));
 const statusOption = computed(() =>

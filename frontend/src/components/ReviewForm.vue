@@ -22,9 +22,9 @@
 
     <UiField label="Текст отзыва" :error="error('text')" isRequired>
       <UiTextarea
-        :model-value="formData.text"
-        :is-disabled="isSending"
-        @update:model-value="writeText"
+        :modelValue="formData.text"
+        :isDisabled="isSending"
+        @update:modelValue="writeText"
       />
     </UiField>
 
@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef } from "vue";
+import { ref } from "vue";
 
 import { UiButton, UiField, UiFlex, UiTextarea, toast } from "mhz-ui";
 import { handleError, min, required, useValidate } from "mhz-helpers";
@@ -61,7 +61,7 @@ const props = defineProps<IProps>();
 const emit = defineEmits<IEmit>();
 
 const formData = ref<IReviewForm>({ rating: 0, text: "" });
-const isSending = shallowRef(false);
+const isSending = ref(false);
 
 const ratingRule = {
   validator: (rule: unknown, value: unknown) => {

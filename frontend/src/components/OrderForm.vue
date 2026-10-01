@@ -2,10 +2,10 @@
   <UiFlex tag="form" column gap="16" @submit.prevent="submit">
     <UiField label="Вид транспорта" :error="error('transport')" isRequired>
       <UiSelect
-        :model-value="transportOption"
+        :modelValue="transportOption"
         :options="transportOptions"
-        :is-disabled="isLoading"
-        @update:model-value="chooseTransport"
+        :isDisabled="isLoading"
+        @update:modelValue="chooseTransport"
       />
     </UiField>
 
@@ -15,20 +15,20 @@
       isRequired
     >
       <UiInput
-        :model-value="formData.startDate"
+        :modelValue="formData.startDate"
         :placeholder="DATE_PLACEHOLDER"
-        :is-disabled="isLoading"
+        :isDisabled="isLoading"
         :maxlength="DATE_LENGTH"
-        @update:model-value="writeDate"
+        @update:modelValue="writeDate"
       />
     </UiField>
 
     <UiField label="Способ оплаты" :error="error('paymentMethod')" isRequired>
       <UiSelect
-        :model-value="paymentMethodOption"
+        :modelValue="paymentMethodOption"
         :options="paymentMethodOptions"
-        :is-disabled="isLoading"
-        @update:model-value="choosePaymentMethod"
+        :isDisabled="isLoading"
+        @update:modelValue="choosePaymentMethod"
       />
     </UiField>
 
@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, shallowRef } from "vue";
+import { computed, ref } from "vue";
 
 import { UiButton, UiField, UiFlex, UiInput, UiSelect } from "mhz-ui";
 import { required, useValidate } from "mhz-helpers";
@@ -80,8 +80,8 @@ const formData = ref<TOrderFormData>({
   startDate: "",
   paymentMethod: "",
 });
-const transportOption = shallowRef<ISelectOption>();
-const paymentMethodOption = shallowRef<ISelectOption>();
+const transportOption = ref<ISelectOption>();
+const paymentMethodOption = ref<ISelectOption>();
 
 const transportOptions = computed<ISelectOption[]>(() =>
   props.transports.map((transport) => ({

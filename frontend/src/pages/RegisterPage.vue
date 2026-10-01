@@ -6,59 +6,59 @@
       <UiFlex tag="form" column gap="16" @submit.prevent="submitRegister">
         <UiField label="Логин" :error="error('login')" isRequired>
           <UiInput
-            :model-value="formData.login"
+            :modelValue="formData.login"
             placeholder="Латинские буквы и цифры, минимум 6 символов"
-            :is-disabled="isSending"
-            @update:model-value="writeField('login', $event)"
+            :isDisabled="isSending"
+            @update:modelValue="writeField('login', $event)"
           />
         </UiField>
 
         <UiField label="Пароль" :error="error('password')" isRequired>
           <UiInput
-            :model-value="formData.password"
+            :modelValue="formData.password"
             type="password"
             isPassword
-            :is-disabled="isSending"
-            @update:model-value="writeField('password', $event)"
+            :isDisabled="isSending"
+            @update:modelValue="writeField('password', $event)"
           />
         </UiField>
 
         <UiField label="ФИО" :error="error('fullName')" isRequired>
           <UiInput
-            :model-value="formData.fullName"
+            :modelValue="formData.fullName"
             placeholder="Иванов Иван Иванович"
-            :is-disabled="isSending"
-            @update:model-value="writeField('fullName', $event)"
+            :isDisabled="isSending"
+            @update:modelValue="writeField('fullName', $event)"
           />
         </UiField>
 
         <UiField label="Дата рождения" :error="error('birthDate')" isRequired>
           <UiInput
-            :model-value="formData.birthDate"
+            :modelValue="formData.birthDate"
             :placeholder="DATE_PLACEHOLDER"
             :maxlength="DATE_LENGTH"
-            :is-disabled="isSending"
-            @update:model-value="writeDate"
+            :isDisabled="isSending"
+            @update:modelValue="writeDate"
           />
         </UiField>
 
         <UiField label="Телефон" :error="error('phone')" isRequired>
           <UiInput
-            :model-value="formData.phone"
+            :modelValue="formData.phone"
             type="tel"
             placeholder="+7 (900) 000-00-00"
-            :is-disabled="isSending"
-            @update:model-value="writeField('phone', $event)"
+            :isDisabled="isSending"
+            @update:modelValue="writeField('phone', $event)"
           />
         </UiField>
 
         <UiField label="E-mail" :error="error('email')" isRequired>
           <UiInput
-            :model-value="formData.email"
+            :modelValue="formData.email"
             type="email"
             placeholder="ivan@mail.ru"
-            :is-disabled="isSending"
-            @update:model-value="writeField('email', $event)"
+            :isDisabled="isSending"
+            @update:modelValue="writeField('email', $event)"
           />
         </UiField>
 
@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef } from "vue";
+import { ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 
 import { UiButton, UiField, UiFlex, UiInput, toast } from "mhz-ui";
@@ -107,8 +107,8 @@ const formData = ref<TRegisterData>({
   email: "",
 });
 
-const isSending = shallowRef(false);
-const notice = shallowRef("");
+const isSending = ref(false);
+const notice = ref("");
 
 const { error, isValid } = useValidate(
   formData,

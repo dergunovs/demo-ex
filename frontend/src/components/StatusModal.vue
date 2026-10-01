@@ -1,9 +1,9 @@
 <template>
   <UiModal
-    :model-value="modelValue"
-    is-confirm
+    :modelValue="modelValue"
+    isConfirm
     width="400"
-    @update:model-value="closeStatusModal"
+    @update:modelValue="closeStatusModal"
     @confirm="confirmStatus"
   >
     <template v-if="order">
@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, shallowRef } from "vue";
+import { computed, ref } from "vue";
 
 import { UiModal } from "mhz-ui";
 
@@ -56,7 +56,7 @@ interface IEmit {
 const props = defineProps<IProps>();
 const emit = defineEmits<IEmit>();
 
-const selectedStatus = shallowRef<TOrderStatus>();
+const selectedStatus = ref<TOrderStatus>();
 
 const availableStatuses = computed<TOrderStatus[]>(() =>
   props.order ? ORDER_STATUS_TRANSITIONS[props.order.status] : [],

@@ -1,4 +1,13 @@
-import { TRANSPORT_IMAGES, TRANSPORT_IMAGE_FALLBACK } from "../constants/index";
+import { api, setBaseURL } from "mhz-helpers";
+
+import { DEFAULT_API_URL, TRANSPORT_IMAGES, TRANSPORT_IMAGE_FALLBACK } from "../constants/index";
+
+const API_TIMEOUT = 5000;
+
+export function setupApi(): void {
+  setBaseURL(DEFAULT_API_URL);
+  api.defaults.timeout = API_TIMEOUT;
+}
 
 export function getTransportImage(title: string): string {
   return TRANSPORT_IMAGES[title] ?? TRANSPORT_IMAGE_FALLBACK;

@@ -6,19 +6,19 @@
       <UiFlex tag="form" column gap="16" @submit.prevent="submitLogin">
         <UiField label="Логин" :error="error('login')" isRequired>
           <UiInput
-            :model-value="formData.login"
-            :is-disabled="isSending"
-            @update:model-value="writeLogin"
+            :modelValue="formData.login"
+            :isDisabled="isSending"
+            @update:modelValue="writeLogin"
           />
         </UiField>
 
         <UiField label="Пароль" :error="error('password')" isRequired>
           <UiInput
-            :model-value="formData.password"
+            :modelValue="formData.password"
             type="password"
             isPassword
-            :is-disabled="isSending"
-            @update:model-value="writePassword"
+            :isDisabled="isSending"
+            @update:modelValue="writePassword"
           />
         </UiField>
 
@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, shallowRef } from "vue";
+import { computed, ref } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
 
 import { UiButton, UiField, UiFlex, UiInput, toast } from "mhz-ui";
@@ -55,8 +55,8 @@ const route = useRoute();
 const router = useRouter();
 
 const formData = ref<TLoginData>({ login: "", password: "" });
-const isSending = shallowRef(false);
-const notice = shallowRef("");
+const isSending = ref(false);
+const notice = ref("");
 
 const redirect = computed(() =>
   typeof route.query.redirect === "string" ? route.query.redirect : "",
