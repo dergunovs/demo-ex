@@ -33,6 +33,11 @@
           :key="transport._id"
           class="card"
         >
+          <img
+            class="cardImage"
+            :src="getTransportImage(transport.title)"
+            :alt="transport.title"
+          />
           <h3>{{ transport.title }}</h3>
           <p class="cardText">{{ transport.description }}</p>
           <p class="price">{{ formatPrice(transport.price) }}</p>
@@ -68,7 +73,7 @@ import { fetchTransports } from "../api/index";
 import { isAuth } from "../auth/index";
 import BaseSlider from "../components/BaseSlider.vue";
 import { SLIDES, URLS } from "../constants/index";
-import { formatPrice } from "../helpers/index";
+import { formatPrice, getTransportImage } from "../helpers/index";
 
 import type { ITransport } from "driverf-contracts";
 
@@ -169,6 +174,13 @@ onMounted(loadTransports);
   font-size: 12px;
   font-weight: 300;
   color: var(--color-gray-dark);
+}
+
+.cardImage {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius);
 }
 
 .price {

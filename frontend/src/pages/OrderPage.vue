@@ -25,6 +25,11 @@
           :key="transport._id"
           class="infoItem"
         >
+          <img
+            class="infoImage"
+            :src="getTransportImage(transport.title)"
+            :alt="transport.title"
+          />
           <p class="infoTitle">{{ transport.title }}</p>
           <p class="infoPrice">{{ formatPrice(transport.price) }}</p>
           <p class="infoText">{{ transport.description }}</p>
@@ -48,7 +53,7 @@ import { handleError } from "mhz-helpers";
 import { createOrder, fetchPaymentMethods, fetchTransports } from "../api/index";
 import OrderForm from "../components/OrderForm.vue";
 import { URLS } from "../constants/index";
-import { formatPrice } from "../helpers/index";
+import { formatPrice, getTransportImage } from "../helpers/index";
 
 import type { IPaymentMethod, ITransport, TOrderFormData } from "driverf-contracts";
 
@@ -137,6 +142,13 @@ onMounted(loadDictionaries);
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.infoImage {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--radius);
 }
 
 .infoTitle {

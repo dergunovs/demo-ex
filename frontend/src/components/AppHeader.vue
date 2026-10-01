@@ -2,7 +2,7 @@
   <header class="header">
     <div class="container inner">
       <RouterLink :to="URLS.home" class="logo" @click="closeMenu">
-        <span class="logoMark">ВРФ</span>
+        <img class="logoImage" :src="LOGO.icon" :alt="LOGO.title" />
         <span>Водить.РФ</span>
       </RouterLink>
 
@@ -74,7 +74,7 @@ import { UiButton, toast } from "mhz-ui";
 import { isLinkActive } from "mhz-helpers";
 
 import { currentUser, isAdmin, isAuth, logoutUser } from "../auth/index";
-import { URLS } from "../constants/index";
+import { LOGO, URLS } from "../constants/index";
 
 const route = useRoute();
 const router = useRouter();
@@ -127,17 +127,10 @@ function signOut(): void {
   text-decoration: none;
 }
 
-.logoMark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.logoImage {
   width: 40px;
   height: 40px;
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--color-white);
-  background-color: var(--color-primary);
-  border-radius: var(--radius);
+  object-fit: contain;
 }
 
 .burger {

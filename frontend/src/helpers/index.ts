@@ -1,3 +1,9 @@
+import { TRANSPORT_IMAGES, TRANSPORT_IMAGE_FALLBACK } from "../constants/index";
+
+export function getTransportImage(title: string): string {
+  return TRANSPORT_IMAGES[title] ?? TRANSPORT_IMAGE_FALLBACK;
+}
+
 export function formatPrice(price: number): string {
   return `${new Intl.NumberFormat("ru-RU").format(price)} ₽`;
 }

@@ -1,34 +1,11 @@
 <template>
   <div class="slider" @mouseenter="stopAutoSlide" @mouseleave="startAutoSlide">
-    <div
-      class="track"
-      :style="{ transform: `translateX(-${activeIndex * 100}%)` }"
-    >
-      <img
-        v-for="(image, position) in images"
-        :key="image"
-        class="image"
-        :src="image"
-        :alt="`Слайд ${position + 1}`"
-      />
+    <div class="track" :style="{transform: `translateX(-${activeIndex * 100}%)`}">
+      <img v-for="(image, position) in images" :key="image" class="image" :src="image" :alt="`Слайд ${position + 1}`" />
     </div>
 
-    <button
-      type="button"
-      class="arrow arrowPrev"
-      aria-label="Предыдущий слайд"
-      @click="showPreviousSlide"
-    >
-      ‹
-    </button>
-    <button
-      type="button"
-      class="arrow arrowNext"
-      aria-label="Следующий слайд"
-      @click="showNextSlide"
-    >
-      ›
-    </button>
+    <button type="button" class="arrow arrowPrev" aria-label="Предыдущий слайд" @click="showPreviousSlide">‹</button>
+    <button type="button" class="arrow arrowNext" aria-label="Следующий слайд" @click="showNextSlide">›</button>
 
     <div class="dots">
       <button
@@ -36,7 +13,7 @@
         :key="image"
         type="button"
         class="dot"
-        :class="{ dotActive: position === activeIndex }"
+        :class="{dotActive: position === activeIndex}"
         :aria-label="`Показать слайд ${position + 1}`"
         @click="goToSlide(position)"
       />
@@ -45,16 +22,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, shallowRef } from "vue";
+import {onMounted, onUnmounted, shallowRef} from "vue";
 
-import { SLIDE_INTERVAL } from "../constants/index";
+import {SLIDE_INTERVAL} from "../constants/index";
 
 interface IProps {
   images: string[];
   interval?: number;
 }
 
-const props = withDefaults(defineProps<IProps>(), { interval: SLIDE_INTERVAL });
+const props = withDefaults(defineProps<IProps>(), {interval: SLIDE_INTERVAL});
 
 const activeIndex = shallowRef(0);
 let timer: number | undefined;
@@ -64,8 +41,7 @@ function showNextSlide(): void {
 }
 
 function showPreviousSlide(): void {
-  activeIndex.value =
-    (activeIndex.value - 1 + props.images.length) % props.images.length;
+  activeIndex.value = (activeIndex.value - 1 + props.images.length) % props.images.length;
 }
 
 function goToSlide(position: number): void {
@@ -121,7 +97,6 @@ onUnmounted(stopAutoSlide);
   background-color: var(--color-white-transparent);
   border: none;
   border-radius: var(--radius);
-  padding-bottom: 8px;
 }
 
 .arrowPrev {
